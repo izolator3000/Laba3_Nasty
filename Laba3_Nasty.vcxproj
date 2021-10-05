@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="Generator.cpp" />
     <ClCompile Include="Laba3_Nasty.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="Processor.cpp" />
     <ClCompile Include="Queue.cpp" />
     <ClCompile Include="Stack.cpp" />
@@ -148,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Generator.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="Processor.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Stack.h" />

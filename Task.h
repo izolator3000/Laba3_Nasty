@@ -10,6 +10,7 @@ public:
     void minusTime(int duration);
     bool operator==(Task& task);
     void operator=(Task* task);
+    void show();
 private:
     int priority;
     int taskTime;

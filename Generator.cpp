@@ -3,10 +3,11 @@
 #include <ctime>
 #include "windows.h"
 #include "Task.h"
+#include "Queue.h"
 
 using namespace std;
 
-Generator::Generator(Queue q1, Queue q2, Queue q3)
+Generator::Generator(Queue* q1, Queue* q2, Queue* q3)
 {
     queues[0] = q1;
     queues[1] = q2;
@@ -15,16 +16,16 @@ Generator::Generator(Queue q1, Queue q2, Queue q3)
 Generator::Generator() {};
 
 void Generator::printTask(Task task)
-{/*"TODO: Вывести все поля"*/
-    cout << task.getPriority();
-    cout << task.getTaskTime();
-    cout << task.getDurationTime();
+{
+    cout << "priority: " <<task.getPriority();
+    cout << "\ttask time: " << task.getTaskTime();
+    cout <<"\tduration time: "<< task.getDurationTime() << endl;
 }
 
 
 Task* Generator::GenerateTask()
 {
-    Task* task = new Task(rand() % 3 + 1, rand() % 20 + 1, rand() % 1000 + 1); //TODO: изменить случайное число на системноеврем¤
+    Task* task = new Task(rand() % 3 + 1, rand() % 20 + 1, rand() % 5 + 1); //TODO: изменить случайное число на системноеврем¤
     printTask(*task);
     return task;
 
@@ -34,7 +35,7 @@ Task* Generator::GenerateTask()
 
 void Generator::run()
 {
-    srand(static_cast<unsigned int>(time(0)));
+    /*srand(static_cast<unsigned int>(time(0)));
     int timeToCreateTask = 0;
     while (true)
     {
@@ -45,19 +46,19 @@ void Generator::run()
             switch (task->getPriority())
             {
             case 1:
-                queues[0].insert(task);
+                queues[0]->insert(*task);
                 break;
             case 2:
-                queues[1].insert(task);
+                queues[1]->insert(*task);
                 break;
             case 3:
-                queues[2].insert(task);
+                queues[2]->insert(*task);
                 break;
             default:
                 break;
             }
             
         }
-        Sleep(1000);
-    }
+        
+    }*/
 }

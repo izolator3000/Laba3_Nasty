@@ -1,16 +1,56 @@
 #pragma once
 #include "Task.h"
-class Queue
-{
+#include "Node.h"
+
+
+
+class Queue {
+    Node* start;
+    Node* end;
+    int priority;
 public:
     Queue();
     Queue(int priority);
-    void insert(Task *task);
-    Task remove();
+    void insert(Task val);
+    Task pop();
     bool isempty();
-private:
-    int priority;
-    Task que[10];
+    int Priority();
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//class Queue
+//{
+//public:
+//    Queue();
+//    Queue(int priority);
+//    void insert(Task *task);
+//    Task remove();
+//    bool isempty();
+//private:
+//    int priority;
+//    Task que[10];
+//};
 
 

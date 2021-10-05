@@ -1,4 +1,6 @@
 #include "Task.h"
+#include <iostream>
+using namespace std;
 
 Task::Task(int priority, int taskTime, int durationTime) {
     this->priority = priority;
@@ -38,4 +40,11 @@ bool Task::operator==(Task& task)
     return this->priority == task.getPriority() &&
            this->taskTime == task.getTaskTime() &&
            this->durationTime == task.getDurationTime();
+}
+
+void Task::show()
+{
+    cout << "priority: " << priority;
+    cout << "\ttask time: " << taskTime;
+    cout << "\tduration time: " << durationTime << endl;
 }

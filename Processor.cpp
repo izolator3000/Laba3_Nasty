@@ -1,59 +1,93 @@
 #include "Processor.h"
 #include <iostream>
 #include "Task.h"
+#include "Queue.h"
 using namespace std;
 
-Processor::Processor(Queue q1, Queue q2, Queue q3)
+Processor::Processor(Queue* q1, Queue* q2, Queue* q3):task(nullptr)
 {
     queues[0] = q1;
     queues[1] = q2;
     queues[2] = q3;
+    stack = new Stack();
 }
 
-Task Processor::newTask()
+
+
+void Processor::end()
 {
-    for (Queue q : queues)
+    task->minusTime(tick);
+    if (task->getDurationTime() <= 0)
     {
-        if (!q.isempty())
+        cout << "Задание выполнено" << endl;
+        task = nullptr;
+    }
+}
+
+void Processor::work()
+{
+    cout << "Процессор начал работу\n";
+    
+
+    Task *new_task = nullptr;
+    Task t;
+    for (int i = 0; i < 3; i++)
+    {
+        if (!queues[i]->isempty())
         {
-            return q.remove();
+            t = queues[i]->pop();
+            new_task = &t;
+            cout << "Процессор у очереди " << queues[i]->Priority() << " получил задание\n";
+            break;
         }
     }
-    return *new Task();
-}
 
 
-void Processor::run()
-{
-    while (true)
+    if (new_task == nullptr)
     {
-        Task new_task = newTask();
-        if (new_task == *new Task())
+        if (task == nullptr)
         {
-            if (task.getDurationTime() <= 0)
-            {
-                if (stack.isempty())
-                    cout << "Процессор в ожидании\n";
-                else
-                    task = stack.remove();
-            }
+            if (stack->isempty())
+                cout << "Стек пуст. Процессор в ожидании" << endl;
             else
             {
-                task.minusTime(tick);
-            }          
+                cout << "Взяли задачу из стека" << endl;
+                t = stack->remove();
+                task = &t;
+            }
+        }
+    }
+    else
+    {
+        if (task == nullptr)
+        {
+            cout << "Выполняем новое задание" << endl;
+            task = new_task;
         }
         else
-        {
-            if (new_task.getPriority() > task.getPriority())
+            if (task->getPriority() >= new_task->getPriority())
             {
-                stack.insert(task);
-                task = new_task;
-                task.minusTime(tick);
+                cout << "Помещаем новое задание в стек" << endl;
+                stack->insert(*new_task);
             }
             else
             {
-                task.minusTime(tick);
+                cout << "Помещаем старое задание в стек" << endl;
+                stack->insert(*task);
+                cout << "Выполняем новое задание" << endl;
+                task = new_task;
             }
+    }
+    if (task != nullptr)
+    {
+        task->minusTime(tick);
+        task->show();
+        if (task->getDurationTime() <= 0)
+        {
+            cout << "Задание выполнено" << endl;
+            task = nullptr;
         }
     }
+    
+    cout << endl << endl;
 }
